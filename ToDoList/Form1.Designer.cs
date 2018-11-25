@@ -266,6 +266,7 @@
             this.Controls.Add(this.txtTodo);
             this.Controls.Add(this.label1);
             this.Name = "txtItem";
+            this.Text = "To Do List";
             this.ResumeLayout(false);
             this.PerformLayout();
 

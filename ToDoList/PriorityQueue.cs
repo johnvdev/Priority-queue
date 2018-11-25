@@ -17,12 +17,12 @@ namespace ToDoList
         {
             get
             {
-                int c = 0;
+                int c = 0;//number of items
                 ToDo current = first;
-                while (current != null)
+                while (current != null)//keep looping until the last items next doesnt exist
                 {
-                    c++;
-                    current = current.Next;
+                    c++;//add to number of items
+                    current = current.Next;//shift forward in the list
                 }
                 return c;
             }
@@ -40,30 +40,36 @@ namespace ToDoList
                 ToDo node = first;
                 ToDo prev = null;
 
-                while(node !=null)//not at end of queue
+                while(node !=null)
                 {
-                    if(newT.Priority >= node.Priority)//if the new one is more important
+                    if(newT.Priority <= node.Priority && (node.Next == null ||newT.Priority > node.Next.Priority))
                     {
-                        if(prev!=null)//if its the first time around 
+                        newT.Next = node.Next;
+                        node.Next = newT;
+                        break;
+                    }
+                    else if(newT.Priority >= node.Priority && (node.Next == null || newT.Priority > node.Next.Priority))
+                    {
+                        if(prev == null)
+                        {
+                            newT.Next = node;
+                            first = newT;
+                            break;
+                        }
+                        else
                         {
                             prev.Next = newT;
-                        }
-                       
-                        newT.Next = node;
-                        if(first.Priority <= newT.Priority)//if the new one is greater than the first it becomes the first
-                        {
-                            first = newT;
-                        }
-                       
-                        break;//we solved the issue so we move on
+                            newT.Next = node;
+                            break;
 
+                        }
                     }
-                    else//not more important so move to next / shift forward
+                    else
                     {
                         prev = node;
                         node = node.Next;
                     }
-                    
+
                 }
             }
         }
